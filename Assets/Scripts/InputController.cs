@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMotor))]
 [RequireComponent(typeof(TankShooter))]
-// If attached to an object with neither of those components, it will automatically add them to that object
+// If attached to an object with none of those components, it will automatically add them to that object
 public class InputController : MonoBehaviour
 {
     private TankData data;
@@ -53,6 +53,14 @@ public class InputController : MonoBehaviour
                 {
                     motor.Rotate(data.turnSpeed);
                 }
+                
+                
+                // Handling shooting
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    shooter.Shoot();
+                }
+
                 break;
 
             case InputScheme.arrowKeys:
@@ -79,6 +87,13 @@ public class InputController : MonoBehaviour
                 {
                     motor.Rotate(data.turnSpeed);
                 }
+
+                // Handling shooting
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    shooter.Shoot();
+                }
+
                 break;
 
             default:

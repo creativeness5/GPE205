@@ -6,4 +6,7 @@ public class TankData : MonoBehaviour
 {
     public float moveSpeed = 3f;
     public float turnSpeed = 30f;
+    public int cannonBallDamage = 1;
+
+
 }

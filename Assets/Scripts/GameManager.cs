@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
+    public GameObject playerPrefab;
+
+    public GameObject[] Players = new GameObject[2];
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 }

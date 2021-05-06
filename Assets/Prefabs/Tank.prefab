@@ -315,9 +315,10 @@ GameObject:
   - component: {fileID: 468779843}
   - component: {fileID: 468779844}
   - component: {fileID: 468779845}
+  - component: {fileID: 1637935086764795278}
   m_Layer: 0
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,8 +384,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 142268561}
-  cannonBallPrefab: {fileID: 0}
-  ballSpeed: 50
+  cannonBallPrefab: {fileID: 8551988009865813917, guid: bc7e6daffb10bef43b2780ccec6162ca,
+    type: 3}
+  ballSpeed: 100
+  timeToWait: 2
 --- !u!114 &468779844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +415,20 @@ MonoBehaviour:
   moveSpeed: 5
   turnSpeed: 50
   cannonBallDamage: 1
+--- !u!114 &1637935086764795278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360998584640966822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f36f991b37075442a8211d95cde8400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 5
+  maxHealth: 5
 --- !u!1 &8360998584640966824
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,11 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMotor))]
 [RequireComponent(typeof(TankShooter))]
+[RequireComponent(typeof(Health))]
 public class SampleAIController2 : MonoBehaviour
 {
     private TankData data;
     private TankMotor motor;
     private TankShooter shooter;
+    private Health health;
 
     public float fleeDistance = 1f;
     public float closeEnough = 4f;
@@ -24,13 +26,40 @@ public class SampleAIController2 : MonoBehaviour
         data = GetComponent<TankData>();
         motor = GetComponent<TankMotor>();
         shooter = GetComponent<TankShooter>();
+        health = GetComponent<Health>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Chase(GameManager.Instance.Players[0]);
-        Flee(GameManager.Instance.Players[0]);
+        
+        if(attackState == AttackState.Chase)
+        {
+            // Do state behavior
+            Chase(GameManager.Instance.Players[0]);
+            // Check for transitions
+            if(health.currentHealth < 3)
+            {
+                attackState = AttackState.Flee;
+            }
+        }
+
+        else if (attackState == AttackState.Flee)
+        {
+            // Do state behavior
+            Flee(GameManager.Instance.Players[0]);
+            // Check for transitions
+            if(health.currentHealth >= 3)
+            {
+                attackState = AttackState.Chase;
+            }
+        }
+
+        else
+        {
+            Debug.LogWarning("[SampleAIController2] unhandled state in Update method");
+        }
     }
 
     public void Chase(GameObject target)
@@ -45,6 +74,7 @@ public class SampleAIController2 : MonoBehaviour
             {
                 motor.Move(data.moveSpeed);
             }
+            //shooter.Shoot();
         }
     }
 
@@ -66,16 +96,16 @@ public class SampleAIController2 : MonoBehaviour
         Vector3 fleePosition = vectorAwayFromTarget + transform.position;
 
         // This way to handle fleeing might make better sense than what is uncommented below
-        motor.RotateTowards(fleePosition, data.turnSpeed);
-        motor.Move(data.moveSpeed);
+        //motor.RotateTowards(fleePosition, data.turnSpeed);
+        //motor.Move(data.moveSpeed);
         
-        if (motor.RotateTowards(vectorAwayFromTarget, data.turnSpeed))
+        if (motor.RotateTowards(fleePosition, data.turnSpeed))
         {
             // Do nothing
         }
         else
         {
-
+            motor.Move(data.moveSpeed);
         }
 
     }

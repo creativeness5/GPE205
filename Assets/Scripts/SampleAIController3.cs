@@ -51,6 +51,12 @@ public class SampleAIController3 : MonoBehaviour
         {
             // Do nothing
         }
+
+        else if (!CanMove(data.moveSpeed))
+        {
+            avoidanceStage = AvoidanceStage.ObstacleDetected;
+        }
+
         else
         {
             if (Vector3.SqrMagnitude(transform.position - target.transform.position) >= (closeEnough * closeEnough))
@@ -58,11 +64,6 @@ public class SampleAIController3 : MonoBehaviour
                 motor.Move(data.moveSpeed);
             }
         }
-    }
-
-    public void Chase()
-    {
-
     }
 
     public void Avoid()
@@ -118,7 +119,11 @@ public class SampleAIController3 : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, speed))
         {
             // And if what we hit is not the player
-
+            if(!hit.collider.CompareTag("Player"))
+            {
+                // Then can't move
+                return false;
+            }
         }
 
         // TODO: Check is we can move forward by "speed" units
